@@ -12,10 +12,10 @@ function TodoItem({ todo, index }) {
                     <label>${todo.title}</label>
                     <button class="destroy"></button>
                 </div>
-                <input class="edit" value="${todo.title}")">
+                <input class="edit" value="${todo.title}">
             </li>   
     `
 }
 
 
-export default TodoItem
+export default TodoItem             
