@@ -9,7 +9,8 @@ const init = {
         all: () => true,
         active: todo => !todo.completed,
         completed: todo => todo.completed
-    }
+    }, 
+    editIndex: null,
 }
 
 const actions = {
@@ -48,9 +49,30 @@ const actions = {
     clearCompleted(state) {
         state.todos = state.todos.filter(state.filters.active)
         storage.set(state.todos)
+    },
+
+    // click hiện ô input
+    startEdit(state, index) {
+        // bật chế dộ edit
+        state.editIndex = index
+    },
+
+    endEdit(state, title) {
+        // kết thúc chế độ edit
+        if(state.editIndex !== null) {
+            if(title) {
+                state.todos[state.editIndex].title = title
+                storage.set(state.todos)  
+            } else {
+                this.destroy(state, state.ed4)
+            }
+            state.editIndex= null
+        }
+    },
+
+    cancelEdit(state) {
+        state.editIndex = null
     }
-
-
 }
 
 export default function reducer(state = init, action, args) {
