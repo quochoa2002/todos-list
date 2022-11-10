@@ -22,7 +22,7 @@ const actions = {
         }
     },
 
-    //  click sẽ hiện dấu gạch
+    //  check sẽ hiện dấu gạch
     toggle({ todos }, index) {
         const todo = todos[index]
         todo.completed = !todo.completed
@@ -33,7 +33,24 @@ const actions = {
     toggleAll({ todos }, completed) {
         todos.forEach(todo => todo.completed = completed)
         storage.set(todos)
+    },
+
+    // chức năng xóa 
+    destroy({ todos }, index) {
+        todos.splice(index, 1)
+        storage.set(todos)
+    },
+
+    switchFilter(state, filter) {
+        state.filter = filter
+    },
+
+    clearCompleted(state) {
+        state.todos = state.todos.filter(state.filters.active)
+        storage.set(state.todos)
     }
+
+
 }
 
 export default function reducer(state = init, action, args) {
